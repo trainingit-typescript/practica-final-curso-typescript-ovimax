@@ -1,9 +1,8 @@
-import moment from 'moment'
-import * as moment from 'moment';
-import {Formatos} from './enum-formatos-pelicula';
-import {Valoracion} from './type-valoracion-pelicula';
+import * as moment from "moment";
+import {Formatos} from "./enum-formatos-pelicula";
+import {Valoracion} from "./type-valoracion-pelicula";
 
-export class Peliculas {
+export class Pelicula {
   public formato: Formatos;
   public valoracion: Valoracion;
   private fecha: moment.Moment;
@@ -21,6 +20,10 @@ export class Peliculas {
   ) {
     this.valoracion = valoracion as Valoracion;
     this.formato = Formatos[formato];
-    this.fecha = moment(fecha, "DD-MM-YYYY");
+    this.fecha = moment(fecha, "YYYY-MM-DD");
+  }
+
+  public getYear(): string {
+    return this.fecha.year().toString();
   }
 }

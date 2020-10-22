@@ -1,1 +1,7 @@
-/* Éste es el archivo de entrada y el que arrancará tu aplicación, desde aquí instanciarás el controlador de películas y el controlador de la vista */
+import {ControladorPeliculas} from "./controlador-peliculas";
+import {VistaPeliculas} from "./vista-peliculas";
+
+const CntrPeliculas = new ControladorPeliculas();
+CntrPeliculas.almacenarPeliculas();
+
+const viewer = new VistaPeliculas(CntrPeliculas);

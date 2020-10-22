@@ -32,4 +32,8 @@ export class ControladorPeliculas {
     this.peliculasPendientes = this.peliculas.filter(p => p.vista === false);
   }
 
+  public getPeliculasPorTipo(tipo: string): Pelicula[] {
+    return tipo === "pendientes" ? this.peliculasPendientes : this.peliculasVistas;
+  }
+
 }
