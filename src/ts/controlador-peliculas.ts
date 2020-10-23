@@ -36,8 +36,26 @@ export class ControladorPeliculas {
     return tipo === "pendientes" ? this.peliculasPendientes : this.peliculasVistas;
   }
 
-  public getNumeroPeliculasPorTipo(tipo:string): number {
+  public getNumeroPeliculasPorTipo(tipo: string): number {
     return tipo === "pendientes" ? this.peliculasPendientes.length : this.peliculasVistas.length;
+  }
+
+  public getPeliculaMasValorada(): Pelicula {
+    return this.peliculas.sort(( peliculaA, peliculaB ) => peliculaB.valoracion - peliculaA.valoracion)[0];
+  }
+
+  public getPeliculaMasOrcars(): Pelicula {
+    return this.peliculas.sort(( peliculaA, peliculaB ) => peliculaB.oscars - peliculaA.oscars)[0];
+  }
+
+  public getPeliculaMasActual(): Pelicula {
+    let pelicula: Pelicula = this.peliculas[0];
+    for (let i = 0; i < this.peliculas.length; i++) {
+      if (pelicula.getCurrent(this.peliculas[i])) {
+        pelicula = this.peliculas[i];
+      }
+    }
+    return pelicula;
   }
 
 }

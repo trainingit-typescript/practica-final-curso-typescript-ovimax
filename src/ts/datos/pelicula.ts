@@ -26,4 +26,8 @@ export class Pelicula {
   public getYear(): string {
     return this.fecha.year().toString();
   }
+
+  public getCurrent(pelicula: Pelicula): boolean {
+    return pelicula.fecha.isAfter(this.fecha);
+  }
 }

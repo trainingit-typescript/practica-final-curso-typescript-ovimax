@@ -1,5 +1,6 @@
 import { ControladorPeliculas } from "./controlador-peliculas";
 import { Formatos } from "./datos/enum-formatos-pelicula";
+import { Pelicula } from "./datos/pelicula";
 
 export class VistaPeliculas {
   private HTML: any = {};
@@ -10,6 +11,7 @@ export class VistaPeliculas {
     this.pintarLista("vistas");
     this.pintarNumeroPeliculas("pendientes");
     this.pintarNumeroPeliculas("vistas");
+    this.pintarEstadisticas();
   }
 
   private alamcenarHtml(): void {
@@ -18,7 +20,9 @@ export class VistaPeliculas {
     this.HTML.peliculasVistas = this.HTML.listaVistas.querySelectorAll("li.js-pelicula");
     this.HTML.peliculasPendientes = this.HTML.listaPendientes.querySelectorAll("li.js-pelicula");
     this.HTML.basePelicula = document.querySelector(".js-pelicula-base");
-    console.log(this.HTML);
+    this.HTML.peliculaMejorValorada = document.querySelector(".js-mejor-valorada");
+    this.HTML.peliculaMasOscars = document.querySelector(".js-mas-oscars");
+    this.HTML.peliculaMasReciente = document.querySelector(".js-mas-reciente");
   }
 
   private limpiarListado(pendientes: boolean): void {
@@ -75,5 +79,21 @@ export class VistaPeliculas {
   private pintarNumeroPeliculas(tipo: string ): void {
     const numeroPeliculas = this.CPeliculas.getNumeroPeliculasPorTipo(tipo);
     document.querySelector(`.js-n-peliculas-${tipo}`).textContent = `${numeroPeliculas}`;
+  }
+
+  private pintarEstadisticas(): void {
+    const mainHTML = this.HTML;
+    const peliculas = this.CPeliculas;
+    console.log(peliculas.getPeliculaMasActual());
+    this.pintarBaseEstadisticas(mainHTML.peliculaMejorValorada, peliculas.getPeliculaMasValorada());
+    this.pintarBaseEstadisticas(mainHTML.peliculaMasOscars, peliculas.getPeliculaMasOrcars());
+    this.pintarBaseEstadisticas(mainHTML.peliculaMasReciente, peliculas.getPeliculaMasActual());
+  }
+
+  private pintarBaseEstadisticas(elemento: HTMLElement, pelicula: Pelicula): void {
+    elemento.querySelector(".js-cartel").setAttribute("src", pelicula.cartel);
+    elemento.querySelector(".js-cartel").setAttribute("alt", pelicula.titulo);
+    elemento.querySelector(".js-cartel").setAttribute("title", pelicula.titulo);
+    elemento.querySelector(".js-titulo").textContent = pelicula.titulo;
   }
 }
