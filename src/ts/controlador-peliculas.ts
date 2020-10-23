@@ -36,4 +36,8 @@ export class ControladorPeliculas {
     return tipo === "pendientes" ? this.peliculasPendientes : this.peliculasVistas;
   }
 
+  public getNumeroPeliculasPorTipo(tipo:string): number {
+    return tipo === "pendientes" ? this.peliculasPendientes.length : this.peliculasVistas.length;
+  }
+
 }

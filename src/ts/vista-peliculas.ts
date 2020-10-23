@@ -8,6 +8,8 @@ export class VistaPeliculas {
     this.alamcenarHtml();
     this.pintarLista("pendientes");
     this.pintarLista("vistas");
+    this.pintarNumeroPeliculas("pendientes");
+    this.pintarNumeroPeliculas("vistas");
   }
 
   private alamcenarHtml(): void {
@@ -68,5 +70,10 @@ export class VistaPeliculas {
       }
       lista.appendChild(nuevoElemento);
     }
+  }
+
+  private pintarNumeroPeliculas(tipo: string ): void {
+    const numeroPeliculas = this.CPeliculas.getNumeroPeliculasPorTipo(tipo);
+    document.querySelector(`.js-n-peliculas-${tipo}`).textContent = `${numeroPeliculas}`;
   }
 }
