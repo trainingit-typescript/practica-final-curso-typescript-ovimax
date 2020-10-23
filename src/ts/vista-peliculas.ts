@@ -12,6 +12,7 @@ export class VistaPeliculas {
     this.pintarNumeroPeliculas("pendientes");
     this.pintarNumeroPeliculas("vistas");
     this.pintarEstadisticas();
+    this.pintarDirectores();
   }
 
   private alamcenarHtml(): void {
@@ -23,6 +24,9 @@ export class VistaPeliculas {
     this.HTML.peliculaMejorValorada = document.querySelector(".js-mejor-valorada");
     this.HTML.peliculaMasOscars = document.querySelector(".js-mas-oscars");
     this.HTML.peliculaMasReciente = document.querySelector(".js-mas-reciente");
+    this.HTML.listaDirectores = document.querySelector(".js-lista-directores");
+    this.HTML.baseDirector = document.querySelector(".js-director-base");
+    this.HTML.basePeliculasDirector = document.querySelector(".js-pelicula-director-base");
   }
 
   private limpiarListado(pendientes: boolean): void {
@@ -84,7 +88,6 @@ export class VistaPeliculas {
   private pintarEstadisticas(): void {
     const mainHTML = this.HTML;
     const peliculas = this.CPeliculas;
-    console.log(peliculas.getPeliculaMasActual());
     this.pintarBaseEstadisticas(mainHTML.peliculaMejorValorada, peliculas.getPeliculaMasValorada());
     this.pintarBaseEstadisticas(mainHTML.peliculaMasOscars, peliculas.getPeliculaMasOrcars());
     this.pintarBaseEstadisticas(mainHTML.peliculaMasReciente, peliculas.getPeliculaMasActual());
@@ -95,5 +98,28 @@ export class VistaPeliculas {
     elemento.querySelector(".js-cartel").setAttribute("alt", pelicula.titulo);
     elemento.querySelector(".js-cartel").setAttribute("title", pelicula.titulo);
     elemento.querySelector(".js-titulo").textContent = pelicula.titulo;
+  }
+
+  private limpiarDirectores(): void {
+    for (const element of this.HTML.listaDirectores.querySelectorAll("li")) {
+      element.remove();
+    }
+  }
+  private pintarDirectores(): void {
+    this.limpiarDirectores();
+    const listaDirectores = this.HTML.listaDirectores as HTMLElement;
+    console.log(listaDirectores)
+
+    for (const director of this.CPeliculas.getListadoDirectores()) {
+      const nuevoBaseDirector = this.HTML.baseDirector.cloneNode(true);
+      nuevoBaseDirector.querySelector(".js-director").textContent = director;
+      listaDirectores.appendChild(nuevoBaseDirector);
+      for(const pelicula of this.CPeliculas.getPeliculasDirector(director)){
+        const nuevoBasePeliculasDirector = this.HTML.basePeliculasDirector.cloneNode(true);
+        nuevoBasePeliculasDirector.querySelector(".js-titulo").textContent = pelicula.titulo;
+        nuevoBasePeliculasDirector.querySelector(".js-anyo").textContent = pelicula.getYear();
+        nuevoBaseDirector.querySelector(".js-lista-peliculas-directores").appendChild(nuevoBasePeliculasDirector);
+      }
+    }
   }
 }

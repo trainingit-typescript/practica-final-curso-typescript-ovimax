@@ -24,7 +24,6 @@ export class ControladorPeliculas {
       this.peliculas.push(nuevaPelicula);
     }
     this.separarPeliculas();
-    console.log(this.peliculasPendientes);
   }
 
   private separarPeliculas(): void {
@@ -56,6 +55,14 @@ export class ControladorPeliculas {
       }
     }
     return pelicula;
+  }
+
+  public getListadoDirectores(): string[] {
+    return this.peliculas.map((pelicula) => pelicula.director).filter((elemento, indice, lista) => lista.indexOf(elemento) === indice);
+  }
+
+  public getPeliculasDirector(director: string): Pelicula[] {
+    return this.peliculas.filter(pelicula => pelicula.director === director);
   }
 
 }
