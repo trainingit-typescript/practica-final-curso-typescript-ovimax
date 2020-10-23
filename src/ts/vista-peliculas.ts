@@ -37,7 +37,9 @@ export class VistaPeliculas {
       nuevoElemento.querySelector(".js-cartel").setAttribute("src", pelicula.cartel);
       nuevoElemento.querySelector(".js-cartel").setAttribute("alt", pelicula.titulo);
       nuevoElemento.querySelector(".js-cartel").setAttribute("title", pelicula.titulo);
-      if(pelicula.oscars === 0){
+      nuevoElemento.querySelector(".js-anyo").textContent = pelicula.getYear();
+      nuevoElemento.querySelector(".js-valoracion").dataset.puntos = pelicula.vista ? pelicula.valoracion : "";
+      if (pelicula.oscars === 0) {
         nuevoElemento.querySelector(".js-oscars").remove();
       }
       switch (pelicula.formato) {
@@ -50,6 +52,19 @@ export class VistaPeliculas {
         case Formatos.archivo:
           nuevoElemento.querySelector(".js-formato-archivo").classList.remove("hide");
           break;
+      }
+      for (let i = 1; i <= 5; i++) {
+        nuevoElemento.querySelector(`.js-valoracion-${i}`).classList.remove("glyphicon-star", "glyphicon-star-empty");
+        if (pelicula.vista){
+            if (i <= pelicula.valoracion){
+              nuevoElemento.querySelector(`.js-valoracion-${i}`).classList.add("glyphicon-star");
+            } else {
+              nuevoElemento.querySelector(`.js-valoracion-${i}`).classList.add("glyphicon-star-empty");
+            }
+        } else {
+          nuevoElemento.querySelector(`.js-valoracion-${i}`).classList.add("glyphicon-star-empty");
+        }
+
       }
       lista.appendChild(nuevoElemento);
     }

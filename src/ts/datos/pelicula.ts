@@ -20,7 +20,7 @@ export class Pelicula {
   ) {
     this.valoracion = valoracion as Valoracion;
     this.formato = Formatos[formato];
-    this.fecha = moment(fecha, "YYYY-MM-DD");
+    this.fecha = moment(fecha, "DD-MM-YYYY");
   }
 
   public getYear(): string {
