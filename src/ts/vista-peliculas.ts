@@ -108,13 +108,12 @@ export class VistaPeliculas {
   private pintarDirectores(): void {
     this.limpiarDirectores();
     const listaDirectores = this.HTML.listaDirectores as HTMLElement;
-    console.log(listaDirectores)
 
     for (const director of this.CPeliculas.getListadoDirectores()) {
       const nuevoBaseDirector = this.HTML.baseDirector.cloneNode(true);
-      nuevoBaseDirector.querySelector(".js-director").textContent = director;
       listaDirectores.appendChild(nuevoBaseDirector);
-      for(const pelicula of this.CPeliculas.getPeliculasDirector(director)){
+      nuevoBaseDirector.querySelector(".js-director").textContent = director;
+      for (const pelicula of this.CPeliculas.getPeliculasDirector(director)) {
         const nuevoBasePeliculasDirector = this.HTML.basePeliculasDirector.cloneNode(true);
         nuevoBasePeliculasDirector.querySelector(".js-titulo").textContent = pelicula.titulo;
         nuevoBasePeliculasDirector.querySelector(".js-anyo").textContent = pelicula.getYear();

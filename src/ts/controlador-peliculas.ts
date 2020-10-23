@@ -6,7 +6,7 @@ export class ControladorPeliculas {
   private peliculasVistas: Pelicula[] = [];
   private peliculasPendientes: Pelicula[] = [];
 
-  constructor() { }
+  constructor() {}
 
   public almacenarPeliculas(): void {
     for (const pelicula of BBDD.peliculas) {
